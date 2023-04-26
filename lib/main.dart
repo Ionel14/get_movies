@@ -40,10 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
         scheme: 'https',
         host: 'yts.mx',
         pathSegments: <String>['api', 'v2', 'list_movies.json'],
-        queryParameters: <String, String>{
-          'page': '1',
-          'limit': '40'
-        });
+        queryParameters: <String, String>{'page': '1', 'limit': '40'});
 
     final Response response = await get(uri);
     //print(response.statusCode);
@@ -74,52 +71,51 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.cyan,
-        appBar: AppBar(
-          backgroundColor: Colors.yellow,
-          title: const Center(
-            child: Text(
-              'Movies',
-            ),
+      backgroundColor: Colors.cyan,
+      appBar: AppBar(
+        backgroundColor: Colors.yellow,
+        title: const Center(
+          child: Text(
+            'Movies',
           ),
         ),
-        body:
-        GridView.builder(
-          itemCount: _movies.length,
-          itemBuilder: (BuildContext context, int index) {
-            final Movie movie = _movies[index];
+      ),
+      body: GridView.builder(
+        itemCount: _movies.length,
+        itemBuilder: (BuildContext context, int index) {
+          final Movie movie = _movies[index];
 
-            return GridTile(
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child: Image.network(
-                      movie.image,
+          return GridTile(
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Image.network(
+                    movie.image,
+                  ),
+                ),
+                GridTileBar(
+                  title: Text(
+                    '${movie.title} (${movie.year})',
+                    style: const TextStyle(
+                      color: Colors.black,
                     ),
                   ),
-                  GridTileBar(
-                    title: Text(
-                      '${movie.title} (${movie.year})',
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                    subtitle: Text(
-                      '${movie.rating}',
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
+                  subtitle: Text(
+                    '${movie.rating}',
+                    style: const TextStyle(
+                      color: Colors.black,
                     ),
                   ),
-                ],
-              ),
-            );
-          },
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 10,
-          ),
+                ),
+              ],
+            ),
+          );
+        },
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 10,
         ),
+      ),
     );
   }
 }
